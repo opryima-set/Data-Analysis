@@ -7,10 +7,8 @@ from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
 
-# Шлях до файлу датасету
 DATA_FILE = Path(__file__).parent / "datasets" / "diagnostic" / "wdbc.data"
 
-# Назви колонок із опису датасету
 COLUMN_NAMES = [
     "id",
     "diagnosis",
@@ -110,7 +108,6 @@ def main() -> None:
     numeric_summary = summarize_numeric(df.drop(columns=["diagnosis"]))
     categorical_summary = summarize_categorical(df[["diagnosis"]])
 
-    # Вивід у консоль
     pd.set_option("display.max_rows", None)
     print("=== Числові ознаки ===")
     print(numeric_summary)
@@ -130,7 +127,6 @@ def main() -> None:
             f"{stats['q25_code']} / {stats['q50_code']} / {stats['q75_code']}"
         )
 
-    # Збереження у PDF
     output_pdf = Path(__file__).parent / "results.pdf"
     save_to_pdf(numeric_summary, categorical_summary, output_pdf)
     print(f"\nРезультати також збережено у файл: {output_pdf}")
@@ -165,7 +161,7 @@ def save_to_pdf(
     cat_text = "\n".join(cat_lines)
 
     with PdfPages(output_path) as pdf:
-        fig, ax = plt.subplots(figsize=(8.27, 11.69))  # A4 вертикально
+        fig, ax = plt.subplots(figsize=(8.27, 11.69))
         ax.axis("off")
         ax.text(
             0.02,
