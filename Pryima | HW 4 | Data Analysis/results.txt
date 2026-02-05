@@ -1,0 +1,93 @@
+=== HEAD OF MAIN DATASET (wdbc) ===
+         id diagnosis  radius_mean  texture_mean  ...  concavity_worst  concave_points_worst  symmetry_worst  fractal_dimension_worst
+0    842302         M        17.99         10.38  ...           0.7119                0.2654          0.4601                  0.11890
+1    842517         M        20.57         17.77  ...           0.2416                0.1860          0.2750                  0.08902
+2  84300903         M        19.69         21.25  ...           0.4504                0.2430          0.3613                  0.08758
+3  84348301         M        11.42         20.38  ...           0.6869                0.2575          0.6638                  0.17300
+4  84358402         M        20.29         14.34  ...           0.4000                0.1625          0.2364                  0.07678
+
+[5 rows x 32 columns]
+
+=== LOOKUP TABLE ===
+       id diagnosis   diagnosis_full
+0   87930         B     Benign tumor
+1  859575         M  Malignant tumor
+2    8670         M  Malignant tumor
+3  907915         B     Benign tumor
+4  921385         B     Benign tumor
+=== INNER JOIN (only rows with a match in lookup) ===
+Inner join shape: (398, 34)
+         id diagnosis_main diagnosis_lookup   diagnosis_full
+0    842302              M                M  Malignant tumor
+1  84300903              M                M  Malignant tumor
+2  84348301              M                M  Malignant tumor
+3    843786              M                M  Malignant tumor
+4    844359              M                M  Malignant tumor
+
+=== LEFT JOIN (all rows from main table, matches from lookup when available) ===
+Left join shape: (569, 34)
+         id diagnosis_main diagnosis_lookup   diagnosis_full
+0    842302              M                M  Malignant tumor
+1    842517              M              NaN              NaN
+2  84300903              M                M  Malignant tumor
+3  84348301              M                M  Malignant tumor
+4  84358402              M              NaN              NaN
+5    843786              M                M  Malignant tumor
+6    844359              M                M  Malignant tumor
+7  84458202              M                M  Malignant tumor
+8    844981              M              NaN              NaN
+9  84501001              M                M  Malignant tumor
+
+=== CONCAT (appending new rows) ===
+Original shape: (569, 32), after concat: (572, 32)
+Example of newly added rows:
+         id diagnosis  radius_mean  area_mean
+0  10906564         M        14.69      656.1
+1  10085715         B        13.17      534.6
+2  10891670         M        12.95      513.7
+
+=== MELT (long format for mean metrics) ===
+         id diagnosis       metric  value
+0    842302         M  radius_mean  17.99
+1    842517         M  radius_mean  20.57
+2  84300903         M  radius_mean  19.69
+3  84348301         M  radius_mean  11.42
+4  84358402         M  radius_mean  20.29
+5    843786         M  radius_mean  12.45
+6    844359         M  radius_mean  18.25
+7  84458202         M  radius_mean  13.71
+8    844981         M  radius_mean  13.00
+9  84501001         M  radius_mean  12.46
+
+=== PIVOT TABLE (mean values by diagnosis) ===
+            area_mean  perimeter_mean  radius_mean  smoothness_mean  texture_mean
+diagnosis                                                                        
+B          462.790196       78.075406    12.146524         0.092478     17.914762
+M          978.376415      115.365377    17.462830         0.102898     21.604906
+
+=== ASSIGN (new calculated features) ===
+         id diagnosis_main  radius_mean  area_mean  radius_area_ratio  is_large_radius  high_risk
+0    842302              M        17.99     1001.0           0.017972             True       True
+1    842517              M        20.57     1326.0           0.015513             True       True
+2  84300903              M        19.69     1203.0           0.016367             True       True
+3  84348301              M        11.42      386.1           0.029578            False      False
+4  84358402              M        20.29     1297.0           0.015644             True       True
+5    843786              M        12.45      477.1           0.026095            False      False
+6    844359              M        18.25     1040.0           0.017548             True       True
+7  84458202              M        13.71      577.9           0.023724             True       True
+8    844981              M        13.00      519.8           0.025010            False      False
+9  84501001              M        12.46      475.9           0.026182            False      False
+
+========================================
+DATA INSIGHTS REPORT
+========================================
+1. JOIN ANALYSIS: Left join kept 569 rows.
+   Successfully matched 398 records (69.9%) with descriptive labels.
+2. CATEGORY ANALYSIS: Malignant mean radius (17.46) is larger than Benign mean radius (12.15) by 43.8%.
+3. FEATURE ENGINEERING: Derived metrics like radius_area_ratio and high_risk help to highlight potentially dangerous tumor profiles.
+========================================
+
+=== SUMMARY ===
+Main dataset shape: (569, 32)
+Shape after concat (with new rows): (572, 32)
+Long format (melt) shape: (2276, 4)
