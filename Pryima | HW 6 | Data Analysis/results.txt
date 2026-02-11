@@ -1,0 +1,47 @@
+HW6: Advanced visualizations
+Dataset shape: (569, 32)
+Diagnosis: {'B': 357, 'M': 212}
+
+--- Area charts ---
+Saved: plots/area_01_simple.png
+Saved: plots/area_02_multiple.png
+Saved: plots/area_03_stacked.png
+Saved: plots/area_04_confidence.png
+
+--- Density charts ---
+Saved: plots/density_01_histogram.png
+Saved: plots/density_02_kde.png
+Saved: plots/density_03_2d.png
+Saved: plots/density_04_ridge.png
+
+--- Ordered profiles (replacing pseudo-time series) ---
+Saved: plots/ts_01_simple.png
+Saved: plots/ts_02_multiple.png
+Saved: plots/ts_03_trend_smoothing.png
+
+--- Tree / Network ---
+Saved: plots/tree_01_hierarchical.png
+Saved: plots/tree_02_radial.png
+Saved: plots/tree_03_decision.png
+Saved: plots/tree_04_network.png
+
+============================================================
+ANALYTICAL CONCLUSIONS (HW6)
+============================================================
+
+--- Area / Ordered profiles ---
+Using sorted ordering avoids implying a real time axis. The profile shows spread and tail behavior.
+Rolling mean + CI highlights stable central regions and variability at the extremes.
+
+--- Density charts ---
+Malignant tends to have larger radius_mean: mean(M)=17.46 vs mean(B)=12.15; median(M)=17.33 vs median(B)=12.20.
+2D density in (radius_mean, area_mean) indicates partial separation of groups (clusters).
+Ridge plot reinforces the distribution shift toward larger values for Malignant.
+
+--- Tree / Network ---
+Dendrogram clusters observations by similarity in selected mean features.
+Decision tree demonstrates that a small set of mean features can classify B vs M reasonably well.
+Radial/network graphs are conceptual diagrams to summarize relationships (not data-driven layouts).
+============================================================
+
+All plots saved to plots/
