@@ -1,0 +1,20 @@
+HW5: Data visualization and analysis
+Dataset shape: (569, 32)
+Diagnosis value_counts: {'M': 212, 'B': 357}
+radius_mean range: [6.98, 28.11]
+------------------------------
+Saved: plots/01_pie_diagnosis.png
+Saved: plots/02_donut_diagnosis.png
+Saved: plots/03_bar_means_by_diagnosis.png
+Saved: plots/04_line_trends.png
+Saved: plots/05_histogram_radius_by_diagnosis.png
+Saved: plots/06_box_area_by_diagnosis.png
+Saved: plots/07_scatter_radius_vs_area.png
+
+--- ВИСНОВКИ ПО ДАНИМ ---
+1. ДІАГНОЗ: У наборі даних переважають доброякісні пухлини (B) — 62.7% над злоякісними (M) — 37.3%.
+2. ПОКАЗНИКИ: Злоякісні пухлини (M) мають значно вищі середні показники основних ознак. Наприклад, середня площа (area_mean) для M суттєво перевищує показники для B.
+3. КОРЕЛЯЦІЯ: Scatter plot чітко демонструє позитивну залежність між radius_mean та area_mean. Злоякісні випадки формують окремий кластер у зоні високих значень.
+4. ВАРІАТИВНІСТЬ: Гістограма показує, що розподіл радіуса злоякісних пухлин зміщений вправо та має більший розкид (дисперсію) порівняно з доброякісними.
+------------------------------
+All plots saved to plots/
